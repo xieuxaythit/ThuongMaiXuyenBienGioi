@@ -124,7 +124,7 @@ contract HopDongThuongMai {
 
         if(bHangOK == false) {
             // Nguoi van chuyen cong nhanh voi Nguoi mua hang bi hong 
-            // Van tra tien cho nguoi ban
+            // Van tra tien cho nguoi ban binh thuong
             TaiKhoanNguoiBan.transfer( TienHang * (1 gwei) );
 
             // Tra lai toan bo tien con lai trong CONTRACT cho nguoi mua 
@@ -157,12 +157,18 @@ contract HopDongThuongMai {
             TaiKhoanNguoiMua.transfer( address(this).balance );
         }
 
-        // Thanh ly hop dong khi den noi thi nguoi mua "CHET"
+        // Thanh ly hop dong khi den noi thi nguoi mua "CHET" hoac khong nhan hang
         if (TrangThaiHopDong == enTrangThaiHopDong.HangDaToiDichRoi) {
             // Chia ra 2 truong hop, thanh ly ngay, hoac la mang hang ve tra lai NGUOI BAN
             // TRUONG HOP THANH LY NGAY vi den day nguoi ban va nguoi van chuyen da hoan thanh trach nhiem
             // Tra tien cho nguoi ban binh thuong
             TaiKhoanNguoiBan.transfer( TienHang * (1 gwei) );
+
+            // Tra tien cho nguoi van chuyen binh thuong 
+            TaiKhoanVanChuyen.transfer( (TienHang + TienVanChuyen) * (1 gwei) );
+
+            // Vet not tien con du trong CONTRACT tra lai cho nguoi mua 
+            TaiKhoanNguoiMua.transfer( address(this).balance );
         }
 
         // Thanh ly hop dong dang cho phan xu
